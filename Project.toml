@@ -1,0 +1,13 @@
+name = "RubiksView"
+uuid = "1dec3d80-0727-440a-b73c-e6a05312bbb7"
+authors = ["Bui Quang Minh <minhcly95@outlook.com> and contributors"]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
