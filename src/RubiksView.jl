@@ -1,7 +1,7 @@
 module RubiksView
 
 using RubiksCore
-using Luxor, Colors
+using Luxor, Colors, ImageShow
 
 include("macros.jl")
 include("colors.jl")

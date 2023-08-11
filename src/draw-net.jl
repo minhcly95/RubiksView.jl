@@ -1,11 +1,13 @@
-Base.show(io::IO, mime::MIME"image/svg+xml", cube::Cube) = show(io, mime, draw_net(cube, format=:svg))
-Base.show(io::IO, mime::MIME"image/png", cube::Cube) = show(io, mime, draw_net(cube, format=:png))
+Base.show(io::IO, mime::MIME"image/png", cube::Cube) = show(io, mime, draw_net(cube))
 
 function draw_net(cube::Cube, projection=:oblique;
-    format=:svg, z_scale=0.6,
-    attach_down=:front, attach_back=:right, attach_left=:front,
+    z_scale=0.6, attach_down=:front, attach_back=:right, attach_left=:front,
     colors=default_color_scheme(), background=nothing,
-    cell_width=30, cell_border_width=2, face_border_width=4)
+    scale=1, cell_width=30, cell_border_width=2, face_border_width=4)
+
+    cell_width *= scale
+    cell_border_width *= scale
+    face_border_width *= scale
 
     # Preprocessing
     @_check_argument_in_array(attach_down, :none, :front, :right)
@@ -28,8 +30,10 @@ function draw_net(cube::Cube, projection=:oblique;
         throw(ArgumentError("invalid value for projection, must be :flat, :oblique, or :isometric"))
     end
 
+    width, height = round.(Int, ((bounds[3]-bounds[1]+1/3) * 3cell_width, (bounds[4]-bounds[2]+1/3) * 3cell_width))
+
     # Drawing
-    Drawing((bounds[3]-bounds[1]+1/3) * 3cell_width, (bounds[4]-bounds[2]+1/3) * 3cell_width, format)
+    Drawing(width, height, :png)
     origin()
 
     translate(-Point(bounds[3]+bounds[1], bounds[4]+bounds[2])/2 * 3cell_width)
@@ -41,8 +45,9 @@ function draw_net(cube::Cube, projection=:oblique;
         isnothing(transforms[i]) || _draw_face(net[i], transforms[i]; kwargs...)
     end
 
+    f = convert(Matrix, image_as_matrix())
     finish()
-    return preview()
+    return f
 end
 
 function _get_flat_transforms_and_bounds(z, attach_down, attach_back, attach_left)
