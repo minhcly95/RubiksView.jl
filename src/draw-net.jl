@@ -34,9 +34,9 @@ function draw_net(cube::Cube, projection=:oblique;
 
     # Drawing
     Drawing(width, height, :png)
-    origin()
+    Luxor.origin()
 
-    translate(-Point(bounds[3]+bounds[1], bounds[4]+bounds[2])/2 * 3cell_width)
+    translate(-Luxor.Point(bounds[3]+bounds[1], bounds[4]+bounds[2])/2 * 3cell_width)
     isnothing(background) || Luxor.background(background)
 
     kwargs = (;colors, cell_width, cell_border_width, face_border_width)
@@ -128,22 +128,22 @@ function _draw_face(face_net, transform;
         # Cells
         for i in 1:3, j in 1:3
             setcolor(cell_colors[(j-1)*3+i])
-            box(Point(i - 2, j - 2)/3, 1/3, 1/3, :fill)
+            box(Luxor.Point(i - 2, j - 2)/3, 1/3, 1/3, :fill)
         end
 
         # Cell border
         setline(cell_border_width)
         setlinejoin("round")
         setcolor(BORDER_COLOR)
-        line(Point(-0.5, -1/6), Point(0.5, -1/6), :stroke)
-        line(Point(-0.5, 1/6), Point(0.5, 1/6), :stroke)
-        line(Point(-1/6, -0.5), Point(-1/6, 0.5), :stroke)
-        line(Point(1/6, -0.5), Point(1/6, 0.5), :stroke)
+        line(Luxor.Point(-0.5, -1/6), Luxor.Point(0.5, -1/6), :stroke)
+        line(Luxor.Point(-0.5, 1/6), Luxor.Point(0.5, 1/6), :stroke)
+        line(Luxor.Point(-1/6, -0.5), Luxor.Point(-1/6, 0.5), :stroke)
+        line(Luxor.Point(1/6, -0.5), Luxor.Point(1/6, 0.5), :stroke)
 
         # Face border
         setline(face_border_width)
         setcolor(BORDER_COLOR)
-        box(Point(0, 0), 1, 1, :stroke)
+        box(Luxor.Point(0, 0), 1, 1, :stroke)
     end
 end
 
