@@ -11,6 +11,7 @@ RubiksCore = "a6206385-a85b-45a1-9870-e715cb6a9b8e"
 
 [compat]
 ImageShow = "0.3"
+Luxor = "3"
 julia = "1.6"
 
 [extras]
