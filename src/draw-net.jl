@@ -14,7 +14,7 @@ function draw_net(cube::Cube, projection=:oblique;
     @_check_argument_in_array(attach_back, :none, :up, :right)
     @_check_argument_in_array(attach_left, :none, :up, :front)
 
-    net = collect(RubiksCore._get_net(cube))
+    net = collect(RubikCore._get_net(cube))
     (attach_down == :right) && (net[4] = _rotate_face_ccw(net[4]))
     (attach_back == :up) && (net[5] = _rotate_face_180(net[5]))
     (attach_left == :up) && (net[6] = _rotate_face_cw(net[6]))

@@ -37,7 +37,7 @@ jobs:
       - name: "Add the Private registry via Git"
         run: |
           import Pkg
-          Pkg.Registry.add(Pkg.RegistrySpec(url="https://github.com/minhcly95/JuliaPrivateRegistry"))
+          Pkg.Registry.add(Pkg.RegistrySpec(url="https://github.com/minhcly95/JuliaRegistry.git"))
         shell: julia --color=yes {0}
       - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@v1

@@ -1,7 +1,7 @@
-using RubiksView
-using RubiksCore
+using RubikView
+using RubikCore
 using Test, ReferenceTests
 
-@testset "RubiksView.jl" begin
+@testset "RubikView.jl" begin
     include("draw-net.jl")
 end
