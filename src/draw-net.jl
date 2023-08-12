@@ -14,7 +14,7 @@ function draw_net(cube::Cube, projection=:oblique;
     @_check_argument_in_array(attach_back, :none, :up, :right)
     @_check_argument_in_array(attach_left, :none, :up, :front)
 
-    net = collect(RubikCore._get_net(cube))
+    net = collect(RubikCore.net(cube))
     (attach_down == :right) && (net[4] = _rotate_face_ccw(net[4]))
     (attach_back == :up) && (net[5] = _rotate_face_180(net[5]))
     (attach_left == :up) && (net[6] = _rotate_face_cw(net[6]))
@@ -116,8 +116,7 @@ draw_isometric_cube(cube::Cube; kwargs...) =
 function _draw_face(face_net, transform;
     colors, cell_width, cell_border_width, face_border_width)
 
-    cell_faces = Face.(face_net)
-    cell_colors = [colors[Int(f)] for f in cell_faces]
+    cell_colors = [colors[Int(f)] for f in face_net]
 
     @layer begin
         scale(3cell_width)
